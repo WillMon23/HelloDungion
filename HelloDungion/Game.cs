@@ -29,6 +29,9 @@ namespace HelloDungion
 
             //Console.WriteLine("So Your name is " + name);
 
+
+
+
             // Users name place holder
             string userName = "";
 
@@ -42,16 +45,18 @@ namespace HelloDungion
             int userLevel = 0;
 
             // Health value
-            int userHealth = 0;
+            int userHealth = 0, enemyHealth = 200;
 
             // Hold Charaters Damage output
-            int userDamage = 0;
+            double userDamage = 0, enemyDamage = 40;
 
             // Check for Correct Spelling on the job 
-            float earningExp = 0;
+            float earningExp = 0, ExpGain = 50;
 
             //Definds gameOver variable for use Later 
             bool gameOver = true;
+
+            string[] abilities = {};
 
 
 
@@ -63,7 +68,7 @@ namespace HelloDungion
 
             // Takes User Input and Stores It in userName
             Console.WriteLine("Lets Start With Your Name, Seems Easy Enough \n");
-            Console.WriteLine("> ");
+            Console.Write("> ");
             userName = Console.ReadLine();
 
             // Takes User Input and Stores It in userJob
@@ -71,48 +76,98 @@ namespace HelloDungion
             Console.ReadLine();
 
             // Asks from the veriations of occupation
-            Console.WriteLine("Are You a 'Flying Enter (1)' Type");
+            Console.WriteLine("Are You a 'Flying or Enter '(1)' Type");
             Console.WriteLine();
-            Console.WriteLine("Are You a 'Speedster Enter (2)' Type ");
+            Console.WriteLine("Are You a 'Speedster or Enter '(2)' Type ");
             Console.WriteLine();
-            Console.WriteLine("Are You a 'Acrobatic Enter (3)' Type ");
-            Console.WriteLine("> ");
+            Console.WriteLine("Are You a 'Acrobatic or Enter '(3)' Type ");
+            Console.Write("> ");
             playerResponse = Console.ReadLine();
 
-            //Users Resposnse in order to Dictate what will happen to the User 
+            //Users Resposnse in order to Dictate what will happen to the User Stats 
+            
+            // Input Response to (1) or Flyer then sets Characters capabilities 
             if (playerResponse == "1" || playerResponse == "Flyer") // Input Response to (1) or Flyer sets Characters capabilities 
             {
                 userJob = "Flyer";
                 Console.WriteLine("So I See You're a Flyer, not the strogest ability but has the better survivability of the other two ");
                 userLevel = 20;
-                earningExp += .05f;   
+               
+                userHealth = 2500;
+                earningExp += .05f;
+
+                userDamage = userLevel * earningExp;
+
+                abilities = new string[]{ "Gust Attack", "WorldWind", "Dive Bomb"};
 
             }
+            // Input Response to (2) or Speedster then sets Characters capabilities 
             else if (playerResponse == "2" || playerResponse == "Speedster")
             {
-
                 userJob = "Speedster";
                 Console.WriteLine("So I See You're a Speedster, The Most Balanced of All the Other Classes ");
                 userLevel = 10;
+                
+                userHealth = 2000;
                 earningExp += .1f;
+
+                userDamage = userLevel * earningExp;
+
+                abilities = new string[]{ "Dash Attack", "Tornado", "1000 Punches"};
 
             }
             else if (playerResponse == "3" || playerResponse == "Acrobatic")
             {
                 userJob = "Acrobatic";
                 Console.WriteLine("So I See a Acrobatic, The Strongest out off the Class but less likely to survive");
-                userLevel = 5; 
+                userLevel = 5;
+                
+                userHealth = 1000;
                 earningExp += 2;
+
+                userDamage = userLevel * earningExp;
+
+                abilities = new string[] { "Sucker Punch", "Stun Gun", "Uses Weakness"};
             }
+
             else
                 Console.WriteLine(" Sorry but this is not the place for you to level up, Try somewhere else or TRY AGAIN " + userJob);
+
+            Console.WriteLine("So Your Name is: " + userName);
+            Console.WriteLine("Your Skilled as a " + userJob);
+            Console.WriteLine("This Skill Comes With" +
+                "\n\nStarting Level of " + userLevel +
+                "\n\nStarting Health of " + userHealth +
+                "\n\nDamage Output of " + userDamage);
+            Console.ReadKey();
+            Console.Clear();
+
+            
+
+            for (int i = 0; i < abilities.Length; i++)
+                Console.WriteLine(abilities[i]);
+            
+            Console.WriteLine("So Lets start with some dummies");
+
+            while (gameOver)
+            {
+
+                Console.WriteLine("What Will You Do Next");
+
+
+                if (userLevel <= 100 || userHealth <= 0)
+                    gameOver = false;
+                
+
+
+            }
 
             Console.ReadKey();
             Console.Clear();
 
 
 
-
+            
 
             //Test Commit 
 
