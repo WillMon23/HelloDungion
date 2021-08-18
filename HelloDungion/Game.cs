@@ -37,7 +37,8 @@ namespace HelloDungion
             // Current level they reside in 
             int userLevel = 0;
             // Check for Correct Spelling on the job 
-            float expirence = 0;
+            float earningExp = 0;
+
 
 
 
@@ -46,7 +47,7 @@ namespace HelloDungion
             // Spaces Out The Lines So It Looks Cleaner 
             Console.ReadLine();
             // Takes User Input and Stores It in userName
-            Console.WriteLine("For Now Lets Start With Your Name ");
+            Console.WriteLine("Lets Start With Your Name Seems Easy Enough ");
             userName = Console.ReadLine();
 
             // Takes User Input and Stores It in userJob
@@ -56,8 +57,28 @@ namespace HelloDungion
             Console.ReadLine();
             Console.WriteLine("Are You a 'Speedster' Type ");
             Console.ReadLine();
+            Console.WriteLine("Are You a 'Acrobatic' Type ");
+            Console.ReadLine();
 
             if (userJob == "Flayer")
+            {
+                earningExp += 12;
+
+                if (userLevel <= 100)
+                {
+
+                }
+            }
+            if (userJob == "Speedster")
+            {
+
+
+                if (userLevel <= 100)
+                {
+
+                }
+            }
+            if (userJob == "Acrobotic")
             {
 
 
@@ -76,7 +97,7 @@ namespace HelloDungion
 
             Console.Read();
 
-
+        //Test Commit 
 
 
 
