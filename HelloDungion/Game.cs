@@ -59,7 +59,7 @@ namespace HelloDungion
         void Introduction ()
         {
             // Introduction
-            Console.Write("So You Found Your Way Here Novise and Since Your Here I Can Only Assume You Came Here to Gain Some Leveles For Your Super Hero States \n");
+            Console.Write("So You Found Your Way Here Novise and Since Your Here I Can Only Assume You Came Here to Gain Some Leveles For Your Super Hero Stats. \n");
             // Spaces Out The Lines So It Looks Cleaner 
             Console.ReadLine();
 
@@ -70,7 +70,7 @@ namespace HelloDungion
             userName = Console.ReadLine();
 
             // Takes User Input and Stores It in userJob
-            Console.WriteLine("So Tell me What Kind of Skill do You Posses, This is Important for This Will Dectate how much Exp You'll Gain");
+            Console.WriteLine("So Tell me What Kind of Skill do You Posses, This is Important for This Will Dectate how much Exp You'll Gain.");
             Console.ReadLine();
 
             // Asks from the veriations of occupation
@@ -107,7 +107,7 @@ namespace HelloDungion
             else if (playerResponse == "2" || playerResponse == "Speedster")
             {
                 userJob = "Speedster";
-                Console.WriteLine("So I See You're a Speedster, The Most Balanced of All the Other Classes ");
+                Console.WriteLine("So I See You're a Speedster, The Most Balanced of All the Other Classes. ");
                 userLevel = 10;
 
                 userHealth = 2000;
@@ -115,13 +115,13 @@ namespace HelloDungion
 
                 userDamage = userLevel * earningExp;
 
-                abilities = new string[] { "Dash Attack", "Tornado", "1000 Punches" };
+                abilities = new string[] { "Dash Attack", "Tornado", "1000 Punches." };
 
             }
             else if (playerResponse == "3" || playerResponse == "Acrobatic")
             {
                 userJob = "Acrobatic";
-                Console.WriteLine("So I See a Acrobatic, The Strongest out off the Class but less likely to survive");
+                Console.WriteLine("So I See a Acrobatic, The Strongest out off the Class but less likely to survive.");
                 userLevel = 5;
 
                 userHealth = 1000;
@@ -134,7 +134,7 @@ namespace HelloDungion
 
             else
             {
-                Console.WriteLine(" Sorry but this is not the place for you to level up, Try somewhere else or TRY AGAIN " + userJob);
+                Console.WriteLine(" Sorry but this is not the place for you to level up, Try somewhere else or TRY AGAIN " + userJob + ".");
                 gameOver = false;
             }
         }
@@ -153,7 +153,7 @@ namespace HelloDungion
             Console.WriteLine("Your Abilities are: ");
 
             for (int i = 0; i < abilities.Length; i++)
-                Console.WriteLine(abilities[i] + "(" + (i+1) + ") ");
+                Console.WriteLine(abilities[i] + " (" + (i+1) + ") ");
 
         }
 
@@ -181,7 +181,7 @@ namespace HelloDungion
         
 
             
-            Console.WriteLine("So Lets start with some dummies");
+            Console.WriteLine("So Lets start with some dummies.");
 
             Console.WriteLine("What Will You Do Next");
 
