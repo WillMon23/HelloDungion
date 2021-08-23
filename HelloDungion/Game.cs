@@ -40,8 +40,12 @@ namespace HelloDungion
         // Current level they reside in 
         public int userLevel = 0;
 
+
+        //Allocates a Certen vaule to cureent state of health
+        public int numaratedHealth = 0;
+
         // Health stat
-        public string userHealth = " "; //enemyHealth = 200;
+        public string userHealth = " "; 
         // Hold Charaters Damage output
         //public float userDamage = 0, enemyDamage = 40f;
 
@@ -51,30 +55,36 @@ namespace HelloDungion
         //Definds gameOver variable
         public bool gameOver = true;
 
+        bool wrongInput = true;
+
+        // If Player wants to play agin
+        string playAgain = "";
+
         // Containts the abilities the charater
         public string[] abilities = new string[3];
 
+        // Uses the variable to select where in the array 
         public int abilityNum = 0;
 
         // Function meant to display introduction to player
         void Introduction ()
         {
             // Introduction
-            Console.Write("So You Found Your Way Here Novise and Since Your Here I Can Only Assume You Came Here to Gain Some Leveles For Your Super Hero Stats." +
-                "\n Press Any Key ");
+            Console.Write("So You Found Your Way Here Novise and Since You'er Here I Can Only Assume You Came Here to Gain Some Leveles For Your Super Hero Stats." +
+                "\nPress Any Key ");
             // Spaces Out The Lines So It Looks Cleaner 
             ClearScreen();
 
 
             // Takes User Input and Stores It in userName
-            Console.Write("Lets Start With Your Name, Seems Easy Enough \n");
+            Console.Write("Lets Start With Your Name, Seems Easy Enough, Right?\n");
             Console.Write("> ");
             userName = Console.ReadLine();
 
             // Takes User Input and Stores It in userJob
-            Console.WriteLine("So Tell me What Kind of Skill do You Posses, This is Important for This Will Dectate how much Exp You'll Gain." +
-                "\n Press Any Key");
-            ClearScreen();
+            Console.WriteLine("Now, Whats YOur Class?");
+            Console.Write("> ");
+            Console.Clear();
 
             // Asks from the veriations of occupation
             Console.WriteLine("Are You a 'Flying or Enter '(1)' Type");
@@ -84,8 +94,7 @@ namespace HelloDungion
             Console.WriteLine("Are You a 'Acrobatic or Enter '(3)' Type ");
             Console.Write("Enter Class Name or Number Assocaited With the Class > ");
             playerResponse = Console.ReadLine();
-
-            ClearScreen();
+            Console.Clear();
 
 
         }
@@ -102,10 +111,8 @@ namespace HelloDungion
                 Console.WriteLine("So I See You're a Flyer, not the strogest ability but has the better survivability of the other two ");
                 userLevel = 20;
 
-                //userHealth = 2500;
-                //earningExp += .05f;
+                numaratedHealth = 3;
 
-                //userDamage = userLevel * earningExp;
 
                 abilities = new string[] { "Gust", "WorldWind", "Dive Bomb", "Defend" };
 
@@ -117,10 +124,7 @@ namespace HelloDungion
                 Console.WriteLine("So I See You're a Speedster, The Most Balanced of All the Other Classes. ");
                 userLevel = 10;
 
-                //userHealth = 2000;
-                //earningExp += .1f;
-
-                //userDamage = userLevel * earningExp;
+                numaratedHealth = 2;
 
                 abilities = new string[] { "Dash", "Tornado", "1000 Punches.", "Defend" };
 
@@ -131,10 +135,7 @@ namespace HelloDungion
                 Console.WriteLine("So I See a Acrobatic, The Strongest out off the Class but less likely to survive.");
                 userLevel = 5;
 
-                //userHealth = 1000;
-                //earningExp += 2f;
-
-                //userDamage = userLevel * earningExp;
+                numaratedHealth = 1;
 
                 abilities = new string[] { "Sucker Punch", "Stun Gun", "Uses Weakness", "Defend" };
             }
@@ -146,21 +147,23 @@ namespace HelloDungion
             }
         }
 
+
         // Dispays charater stats to user  
         void PrintStats()
         {
 
             Console.WriteLine("So Your Name is: " + userName);
-            Console.WriteLine("Your Skilled as a " + userJob);
+            Console.WriteLine("You'er Skilled as a " + userJob);
             Console.WriteLine("This Skill Comes With" +
                 "\n\nStarting Level of " + userLevel +
-                "\n\nCurrent Health HEALTHY");
+                "\n\nCurrent Health: " + PlayerHealth(numaratedHealth));
                // "\n\nDamage Output of " + userDamage);
             Console.WriteLine("You're also going to be equiped with new abilities" +
                 "\nYour Abilities are: ");
 
             for (int i = 0; i < abilities.Length; i++)
                 Console.WriteLine(abilities[i] + " (" + (i+1) + ") ");
+            ClearScreen();
 
         }
 
@@ -170,11 +173,11 @@ namespace HelloDungion
 
             string userResponse = "";
 
-            Console.WriteLine("So Lets start with some dummies.");
+            Console.WriteLine("So Lets Start with some Dummies.");
 
                 
 
-            Console.WriteLine("Dummy Noticed You And Sprints to Attack");
+            Console.WriteLine("Dummy Noticed You And Sprint to Attack");
             
             WhatsNext();
 
@@ -185,7 +188,7 @@ namespace HelloDungion
 
             if (abilityNum == 3)
             {
-                Console.WriteLine("Nice You Went Under The Dummys Attack and Left Him Vonrable  ");
+                Console.WriteLine("Nice, You Went Under The Dumy's Attack and Left Him Vonrable  ");
 
 
                 WhatsNext();
@@ -210,10 +213,17 @@ namespace HelloDungion
                 }
                 else if (abilityNum == 3)
                 {
-                    userHealth = "Medium";
-                    Console.WriteLine("Your Defense STrtegy Failed\n Dummy Recovred\n Dummies Turn");
+                    userHealth = PlayerHealth(numaratedHealth -= 1);
+                    Console.WriteLine("Your Defense Strtegy Failed\n Dummy Recovred\n Dummies Turn");
                     Console.ReadKey();
                     Console.WriteLine("Dummy Truns Into a Cannon and Does His MEGA Cannon Attack");
+                    if (numaratedHealth - 1 != 0)
+                    {
+                        Console.WriteLine("Your Health Dropped to " + userHealth + " Health");
+                        return false; 
+                    }
+                    else
+                        return true;
 
                 }
                 else
@@ -221,16 +231,13 @@ namespace HelloDungion
                     Console.WriteLine("Invaled Input\n Try AGIN!!!");
                     return false;
                 }
-                return true;
 
             }
             else if (abilityNum >= 0 || abilityNum <= 2)
             {
                 Console.WriteLine("Big Oofs! Dummmy Dodged Your " + abilities[abilityNum] + " Attack, " +
                     "\n Dummies Trun" +
-                    "\n Dummy Used Skull and Bone Attack");
-
-                userHealth = "Medium";
+                    "\n Dummy Used Skull and Bone Attack");    
 
                 Console.WriteLine(" You Took  Damage\n" +
                     "Your Heath Dropped to " + userHealth);
@@ -240,11 +247,27 @@ namespace HelloDungion
             }
             else
             {
+
                 Console.WriteLine("Invaled Input\n Try AGIN!!!");
                 return false;
             }
+            
 
             
+        }
+
+        string PlayerHealth(int healthLevel)
+        {
+            if (healthLevel == 0)
+                return "Dead";
+            else if (healthLevel == 1)
+                return "Low";
+            else if (healthLevel == 2)
+                return "Healthy";
+
+            else
+                return "Fix IT Will";
+
         }
 
         /// <summary>
@@ -263,7 +286,7 @@ namespace HelloDungion
             else if (userResponse == "4")
                 return 3;
             else
-                return 4; 
+                return 3;
         }
 
         // Clears Screen When Function is called  
@@ -293,14 +316,40 @@ namespace HelloDungion
                 // Displays charater stats to user 
                 PrintStats();
 
-                // Clears SCrene
-                ClearScreen();
+
 
                 gameOver = DummyResponse();
 
 
                 ClearScreen();
+                if (gameOver)
+                {
+                    while (wrongInput)
+                    {
 
+                        Console.WriteLine("Would You like to play again (y/n)?");
+                        playAgain = Console.ReadLine();
+                        if (playAgain == "y")
+                        {
+                            gameOver = true;
+                            wrongInput = false;
+
+                        }
+                        else if (playAgain == "n")
+                        {
+                            gameOver = false;
+                            wrongInput = false;
+                        }
+                        else
+                            Console.WriteLine("Wrong Input Try AGIN!!");
+
+
+                    }
+
+                }
+                
+
+                ClearScreen();
 
             }
 
