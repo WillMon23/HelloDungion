@@ -40,20 +40,21 @@ namespace HelloDungion
         // Current level they reside in 
         public int userLevel = 0;
 
-        // Health value
-        public int userHealth = 0, enemyHealth = 200;
-
+        // Health stat
+        public string userHealth = " "; //enemyHealth = 200;
         // Hold Charaters Damage output
-        public float userDamage = 0, enemyDamage = 40f;
+        //public float userDamage = 0, enemyDamage = 40f;
 
         // Expirence Gain for Player and the Amount of Expirence GAined From enemy  
-        public float earningExp = 0, ExpGain = 50;
+        //public float earningExp = 0, ExpGain = 50;
 
         //Definds gameOver variable
         public bool gameOver = true;
 
         // Containts the abilities the charater
-        public string[] abilities = { };
+        public string[] abilities = new string[3];
+
+        public int abilityNum = 0;
 
         // Function meant to display introduction to player
         void Introduction ()
@@ -95,12 +96,12 @@ namespace HelloDungion
                 Console.WriteLine("So I See You're a Flyer, not the strogest ability but has the better survivability of the other two ");
                 userLevel = 20;
 
-                userHealth = 2500;
-                earningExp += .05f;
+                //userHealth = 2500;
+                //earningExp += .05f;
 
-                userDamage = userLevel * earningExp;
+                //userDamage = userLevel * earningExp;
 
-                abilities = new string[] { "Gust Attack", "WorldWind", "Dive Bomb" };
+                abilities = new string[] { "Gust", "WorldWind", "Dive Bomb", "Defend" };
 
             }
             // Input Response to (2) or Speedster then sets Characters capabilities 
@@ -110,12 +111,12 @@ namespace HelloDungion
                 Console.WriteLine("So I See You're a Speedster, The Most Balanced of All the Other Classes. ");
                 userLevel = 10;
 
-                userHealth = 2000;
-                earningExp += .1f;
+                //userHealth = 2000;
+                //earningExp += .1f;
 
-                userDamage = userLevel * earningExp;
+                //userDamage = userLevel * earningExp;
 
-                abilities = new string[] { "Dash Attack", "Tornado", "1000 Punches." };
+                abilities = new string[] { "Dash", "Tornado", "1000 Punches.", "Defend" };
 
             }
             else if (playerResponse == "3" || playerResponse == "Acrobatic")
@@ -124,12 +125,12 @@ namespace HelloDungion
                 Console.WriteLine("So I See a Acrobatic, The Strongest out off the Class but less likely to survive.");
                 userLevel = 5;
 
-                userHealth = 1000;
-                earningExp += 2f;
+                //userHealth = 1000;
+                //earningExp += 2f;
 
-                userDamage = userLevel * earningExp;
+                //userDamage = userLevel * earningExp;
 
-                abilities = new string[] { "Sucker Punch", "Stun Gun", "Uses Weakness" };
+                abilities = new string[] { "Sucker Punch", "Stun Gun", "Uses Weakness", "Defend" };
             }
 
             else
@@ -147,14 +148,95 @@ namespace HelloDungion
             Console.WriteLine("Your Skilled as a " + userJob);
             Console.WriteLine("This Skill Comes With" +
                 "\n\nStarting Level of " + userLevel +
-                "\n\nStarting Health of " + userHealth +
-                "\n\nDamage Output of " + userDamage);
-
-            Console.WriteLine("Your Abilities are: ");
+                "\n\nCurrent Health HEALTHY");
+               // "\n\nDamage Output of " + userDamage);
+            Console.WriteLine("You're also going to be equiped with new abilities" +
+                "\nYour Abilities are: ");
 
             for (int i = 0; i < abilities.Length; i++)
                 Console.WriteLine(abilities[i] + " (" + (i+1) + ") ");
 
+        }
+
+        // Enemy stats and Interaction 
+        void DummyResponse()
+        {
+            bool fightingDummy = true;
+            string userResponse = "";
+
+
+            while (fightingDummy)
+            {
+                Console.WriteLine("So Lets start with some dummies.");
+
+                WhatsNext();
+
+                Console.WriteLine("Dummy Noticed You And Sprints to Attack\n Player Turn ");
+
+                userResponse = Console.ReadLine();
+
+                abilityNum = AbilityLocation(userResponse);
+
+
+                if (abilityNum == 3)
+                {
+                    Console.WriteLine("Nice You Went Under The Dummys Attack and Left Him Vonrable  ");
+
+                   
+
+                    WhatsNext(); 
+                    
+                    userResponse = Console.ReadLine();
+                    
+                    abilityNum = AbilityLocation(userResponse);
+
+                    if (abilityNum >=0 || abilityNum <= 2)
+                    {
+                        Console.WriteLine("Critical Hit, Dummy Was Shareded With Your " + abilities[abilityNum] + "\n Dummy Lays On the Ground Dead\n Congrats!!!" +
+                            " \nYou Earned: 15 Levels");
+
+                        userLevel += 15;
+
+                        Console.WriteLine("Your Current Level is " + userLevel);
+                    }
+                    else
+                    {
+                        //Do Thing
+                    }
+                }
+                else if (abilityNum >= 0 || abilityNum <= 2)
+                {
+                    Console.WriteLine("Big Oofs! Dummmy Dodged Your " + abilities[abilityNum] + " Attack, Dummy Used Skull and Bone Attack");
+
+                    Console.WriteLine(" You Took  Damage");
+
+                    userHealth = "Medium";
+                }
+                else
+                {
+                    Console.WriteLine("Invaled Input\n Try AGIN!!!");
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Turns Player Feed Back Into a Intager
+        /// </summary>
+        /// <param name="userResponse">Ability Use</param>
+        /// <returns> Returns the Resposnse</returns>
+        int AbilityLocation(string userResponse)
+        {
+            if (userResponse == "1")
+                return 0;
+            else if (userResponse == "2")
+                return 1;
+            else if (userResponse == "3")
+                return 2;
+            else if (userResponse == "4")
+                return 3;
+            else
+                return 4; 
         }
 
         // Clears Screen When Function is called  
@@ -164,46 +246,44 @@ namespace HelloDungion
             Console.Clear();
         }
 
+        //Just Types "What Will You Do Next"
+        void WhatsNext()
+        {
+            Console.WriteLine("What Will You Do Next");
+        }
 
         public void Run()
         {
-            // Displays Whole Introduction For the Player 
-            Introduction();
-            
-            // Fucntion Allows player to chhose there character class or skill
-            CharacterChoose();
-
-            // Displays charater stats to user 
-            PrintStats();
-
-            // Clears SCrene
-            ClearScreen();
-        
-
-            
-            Console.WriteLine("So Lets start with some dummies.");
-
-            Console.WriteLine("What Will You Do Next");
 
             while (gameOver)
             {
+                // Displays Whole Introduction For the Player 
+                Introduction();
 
-               
+                // Fucntion Allows player to chhose there character class or skill
+                CharacterChoose();
+
+                // Displays charater stats to user 
+                PrintStats();
+
+                // Clears SCrene
+                ClearScreen();
+
+                DummyResponse();
+
+                while (gameOver)
+                {
+                    if (userHealth == "Dead" || userLevel >= 100)
+                        gameOver = false;
 
 
-                if (userLevel <= 100 || userHealth <= 0)
-                    gameOver = false;
-                
+
+                }
+
+                ClearScreen();
 
 
             }
-
-            Console.ReadKey();
-            Console.Clear();
-
-
-
-            
 
             //Test Commit 
 
