@@ -60,19 +60,21 @@ namespace HelloDungion
         void Introduction ()
         {
             // Introduction
-            Console.Write("So You Found Your Way Here Novise and Since Your Here I Can Only Assume You Came Here to Gain Some Leveles For Your Super Hero Stats. \n");
+            Console.Write("So You Found Your Way Here Novise and Since Your Here I Can Only Assume You Came Here to Gain Some Leveles For Your Super Hero Stats." +
+                "\n Press Any Key ");
             // Spaces Out The Lines So It Looks Cleaner 
-            Console.ReadLine();
+            ClearScreen();
 
 
             // Takes User Input and Stores It in userName
-            Console.WriteLine("Lets Start With Your Name, Seems Easy Enough \n");
+            Console.Write("Lets Start With Your Name, Seems Easy Enough \n");
             Console.Write("> ");
             userName = Console.ReadLine();
 
             // Takes User Input and Stores It in userJob
-            Console.WriteLine("So Tell me What Kind of Skill do You Posses, This is Important for This Will Dectate how much Exp You'll Gain.");
-            Console.ReadLine();
+            Console.WriteLine("So Tell me What Kind of Skill do You Posses, This is Important for This Will Dectate how much Exp You'll Gain." +
+                "\n Press Any Key");
+            ClearScreen();
 
             // Asks from the veriations of occupation
             Console.WriteLine("Are You a 'Flying or Enter '(1)' Type");
@@ -80,8 +82,12 @@ namespace HelloDungion
             Console.WriteLine("Are You a 'Speedster or Enter '(2)' Type ");
             Console.WriteLine();
             Console.WriteLine("Are You a 'Acrobatic or Enter '(3)' Type ");
-            Console.Write("> ");
+            Console.Write("Enter Class Name or Number Assocaited With the Class > ");
             playerResponse = Console.ReadLine();
+
+            ClearScreen();
+
+
         }
 
         // Fucntion Allows player to chhose there character class or skill
@@ -159,65 +165,86 @@ namespace HelloDungion
         }
 
         // Enemy stats and Interaction 
-        void DummyResponse()
+        bool DummyResponse()
         {
-            bool fightingDummy = true;
+
             string userResponse = "";
 
+            Console.WriteLine("So Lets start with some dummies.");
 
-            while (fightingDummy)
+                
+
+            Console.WriteLine("Dummy Noticed You And Sprints to Attack");
+            
+            WhatsNext();
+
+            userResponse = Console.ReadLine();
+
+            abilityNum = AbilityLocation(userResponse);
+
+
+            if (abilityNum == 3)
             {
-                Console.WriteLine("So Lets start with some dummies.");
+                Console.WriteLine("Nice You Went Under The Dummys Attack and Left Him Vonrable  ");
+
 
                 WhatsNext();
-
-                Console.WriteLine("Dummy Noticed You And Sprints to Attack\n Player Turn ");
 
                 userResponse = Console.ReadLine();
 
                 abilityNum = AbilityLocation(userResponse);
 
-
-                if (abilityNum == 3)
+                if (abilityNum >= 0 || abilityNum <= 2)
                 {
-                    Console.WriteLine("Nice You Went Under The Dummys Attack and Left Him Vonrable  ");
+                    Console.WriteLine("Critical Hit, Dummy Was Shareded With Your " + abilities[abilityNum] + "\n Dummy Lays On the Ground Dead\n Congrats!!!" +
+                        " \nYou Earned: 15 Levels");
 
-                   
+                    userLevel += 15;
 
-                    WhatsNext(); 
-                    
-                    userResponse = Console.ReadLine();
-                    
-                    abilityNum = AbilityLocation(userResponse);
+                    Console.WriteLine("Your Current Level is " + userLevel);
 
-                    if (abilityNum >=0 || abilityNum <= 2)
-                    {
-                        Console.WriteLine("Critical Hit, Dummy Was Shareded With Your " + abilities[abilityNum] + "\n Dummy Lays On the Ground Dead\n Congrats!!!" +
-                            " \nYou Earned: 15 Levels");
+                    Console.ReadKey();
 
-                        userLevel += 15;
+                    return true;
 
-                        Console.WriteLine("Your Current Level is " + userLevel);
-                    }
-                    else
-                    {
-                        //Do Thing
-                    }
                 }
-                else if (abilityNum >= 0 || abilityNum <= 2)
+                else if (abilityNum == 3)
                 {
-                    Console.WriteLine("Big Oofs! Dummmy Dodged Your " + abilities[abilityNum] + " Attack, Dummy Used Skull and Bone Attack");
-
-                    Console.WriteLine(" You Took  Damage");
-
                     userHealth = "Medium";
+                    Console.WriteLine("Your Defense STrtegy Failed\n Dummy Recovred\n Dummies Turn");
+                    Console.ReadKey();
+                    Console.WriteLine("Dummy Truns Into a Cannon and Does His MEGA Cannon Attack");
+
                 }
                 else
                 {
                     Console.WriteLine("Invaled Input\n Try AGIN!!!");
+                    return false;
                 }
+                return true;
 
             }
+            else if (abilityNum >= 0 || abilityNum <= 2)
+            {
+                Console.WriteLine("Big Oofs! Dummmy Dodged Your " + abilities[abilityNum] + " Attack, " +
+                    "\n Dummies Trun" +
+                    "\n Dummy Used Skull and Bone Attack");
+
+                userHealth = "Medium";
+
+                Console.WriteLine(" You Took  Damage\n" +
+                    "Your Heath Dropped to " + userHealth);
+
+                return true;
+
+            }
+            else
+            {
+                Console.WriteLine("Invaled Input\n Try AGIN!!!");
+                return false;
+            }
+
+            
         }
 
         /// <summary>
@@ -249,7 +276,7 @@ namespace HelloDungion
         //Just Types "What Will You Do Next"
         void WhatsNext()
         {
-            Console.WriteLine("What Will You Do Next");
+            Console.WriteLine("Players Turn");
         }
 
         public void Run()
@@ -269,16 +296,8 @@ namespace HelloDungion
                 // Clears SCrene
                 ClearScreen();
 
-                DummyResponse();
+                gameOver = DummyResponse();
 
-                while (gameOver)
-                {
-                    if (userHealth == "Dead" || userLevel >= 100)
-                        gameOver = false;
-
-
-
-                }
 
                 ClearScreen();
 
