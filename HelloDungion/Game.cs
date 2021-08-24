@@ -32,7 +32,7 @@ namespace HelloDungion
         public string userName = "";
 
         // Job or task there will take on
-        public string userJob = "NOVISE";
+        public string userJob = "NOVICE";
 
         // Checks for Player Response
         public string playerResponse = "";
@@ -55,7 +55,7 @@ namespace HelloDungion
         //Definds gameOver variable
         public bool gameOver = true;
 
-        bool wrongInput = true;
+        public bool wrongInput = true;
 
         // If Player wants to play agin
         string playAgain = "";
@@ -70,33 +70,45 @@ namespace HelloDungion
         void Introduction ()
         {
             // Introduction
-            Console.Write("So You Found Your Way Here Novise and Since You'er Here I Can Only Assume You Came Here to Gain Some Leveles For Your Super Hero Stats." +
-                "\nPress Any Key ");
+            Console.Write("So You Found Your Way Here Novice and Since You're Here I Can Only Assume You Came Here to Gain Some Levels For Your Super Hero Stats.\n");
             // Spaces Out The Lines So It Looks Cleaner 
             ClearScreen();
+            bool properResponse = false;
+            while (!properResponse) {
+                // Takes User Input and Stores It in userName
+                Console.Write("Lets Start With Your Name, Seems Easy Enough, Right?\n");
+                Console.Write("> ");
+                userName = Console.ReadLine();
+
+                // Takes User Input and Stores It in userJob
+                Console.WriteLine("Now, Whats YOur Class? > ");
+                Console.Clear();
+
+                // Asks from the veriations of occupation
+                Console.WriteLine("Are You a Type 'Flyer' or Type     '(1)' Type\n ");
+
+                Console.WriteLine("Are You a Type 'Speedster' or Type '(2)' Type\n ");
+
+                Console.WriteLine("Are You a Type 'Acrobatic' or Type '(3)' Type\n ");
+
+                Console.Write("Enter Class Name or Number Assocaited With the Class > ");
+                playerResponse = Console.ReadLine();
+
+                if (playerResponse == "Flyer" || playerResponse == "Speedster" || playerResponse == "Acrobatic" || playerResponse == "1" || playerResponse == "2" || playerResponse == "3")
+                    properResponse = true;
+                
+                else
+                {
+                    Console.WriteLine("Sorry But Can You Not Read Instructions? TRY AGIN!!!");
+                    ClearScreen();
+                    properResponse = false;
+                }
 
 
-            // Takes User Input and Stores It in userName
-            Console.Write("Lets Start With Your Name, Seems Easy Enough, Right?\n");
-            Console.Write("> ");
-            userName = Console.ReadLine();
 
-            // Takes User Input and Stores It in userJob
-            Console.WriteLine("Now, Whats YOur Class?");
-            Console.Write("> ");
-            Console.Clear();
+                Console.Clear();
 
-            // Asks from the veriations of occupation
-            Console.WriteLine("Are You a 'Flying or Enter '(1)' Type");
-            Console.WriteLine();
-            Console.WriteLine("Are You a 'Speedster or Enter '(2)' Type ");
-            Console.WriteLine();
-            Console.WriteLine("Are You a 'Acrobatic or Enter '(3)' Type ");
-            Console.Write("Enter Class Name or Number Assocaited With the Class > ");
-            playerResponse = Console.ReadLine();
-            Console.Clear();
-
-
+            }
         }
 
         // Fucntion Allows player to chhose there character class or skill
@@ -108,7 +120,7 @@ namespace HelloDungion
             if (playerResponse == "1" || playerResponse == "Flyer") // Input Response to (1) or Flyer sets Characters capabilities 
             {
                 userJob = "Flyer";
-                Console.WriteLine("So I See You're a Flyer, not the strogest ability but has the better survivability of the other two ");
+                Console.WriteLine("So I See You're a Flyer, Weakest Ability But Better Chance of Survival");
                 userLevel = 20;
 
                 numaratedHealth = 3;
@@ -126,13 +138,13 @@ namespace HelloDungion
 
                 numaratedHealth = 2;
 
-                abilities = new string[] { "Dash", "Tornado", "1000 Punches.", "Defend" };
+                abilities = new string[] { "Dash", "Tornado", "1000 Punches", "Defend" };
 
             }
             else if (playerResponse == "3" || playerResponse == "Acrobatic")
             {
                 userJob = "Acrobatic";
-                Console.WriteLine("So I See a Acrobatic, The Strongest out off the Class but less likely to survive.");
+                Console.WriteLine("So I See You're a Acrobatic, The Strongest out off the Class but less likely to survive.\n");
                 userLevel = 5;
 
                 numaratedHealth = 1;
@@ -158,8 +170,7 @@ namespace HelloDungion
                 "\n\nStarting Level of " + userLevel +
                 "\n\nCurrent Health: " + PlayerHealth(numaratedHealth));
                // "\n\nDamage Output of " + userDamage);
-            Console.WriteLine("You're also going to be equiped with new abilities" +
-                "\nYour Abilities are: ");
+            Console.WriteLine("Your Abilities are: ");
 
             for (int i = 0; i < abilities.Length; i++)
                 Console.WriteLine(abilities[i] + " (" + (i+1) + ") ");
@@ -168,16 +179,15 @@ namespace HelloDungion
         }
 
         // Enemy stats and Interaction 
-        bool DummyResponse()
+        bool HologramResponse()
         {
 
-            string userResponse = "";
+            string userResponse;
 
-            Console.WriteLine("So Lets Start with some Dummies.");
+            Console.WriteLine("So Lets Start with some Hologram.");
+  
 
-                
-
-            Console.WriteLine("Dummy Noticed You And Sprint to Attack");
+            Console.WriteLine("Hologram Noticed You And Sprint to Attack");
             
             WhatsNext();
 
@@ -188,7 +198,7 @@ namespace HelloDungion
 
             if (abilityNum == 3)
             {
-                Console.WriteLine("Nice, You Went Under The Dumy's Attack and Left Him Vonrable  ");
+                Console.WriteLine("Nice, You Went Under The Hologram's Attack and Left Him Vonrable  ");
 
 
                 WhatsNext();
@@ -199,7 +209,7 @@ namespace HelloDungion
 
                 if (abilityNum >= 0 || abilityNum <= 2)
                 {
-                    Console.WriteLine("Critical Hit, Dummy Was Shareded With Your " + abilities[abilityNum] + "\n Dummy Lays On the Ground Dead\n Congrats!!!" +
+                    Console.WriteLine("Critical Hit, Hologram Was Shareded With Your " + abilities[abilityNum] + "\n Hologram Lays On the Ground Dead\n Congrats!!!" +
                         " \nYou Earned: 15 Levels");
 
                     userLevel += 15;
@@ -211,15 +221,15 @@ namespace HelloDungion
                     return true;
 
                 }
-                else if (abilityNum == 3)
+                else if (abilityNum >= 0 || abilityNum <= 2)
                 {
                     userHealth = PlayerHealth(numaratedHealth -= 1);
-                    Console.WriteLine("Your Defense Strtegy Failed\n Dummy Recovred\n Dummies Turn");
+                    Console.WriteLine("Your Defense Strtegy Failed\n Hologram Recovred\n Hologram Turns Towards");
                     Console.ReadKey();
-                    Console.WriteLine("Dummy Truns Into a Cannon and Does His MEGA Cannon Attack");
-                    if (numaratedHealth - 1 != 0)
+                    Console.WriteLine("Hologram Truns Into a Cannon and Does His MEGA Cannon Attack");
+                    if (numaratedHealth  != 0)
                     {
-                        Console.WriteLine("Your Health Dropped to " + userHealth + " Health");
+                        Console.WriteLine("Your Health Dropped to: \t" + userHealth + " Health");
                         return false; 
                     }
                     else
@@ -263,8 +273,9 @@ namespace HelloDungion
             else if (healthLevel == 1)
                 return "Low";
             else if (healthLevel == 2)
-                return "Healthy";
-
+                return "Medium";
+            else if (healthLevel == 3)
+                return "High";
             else
                 return "Fix IT Will";
 
@@ -292,6 +303,7 @@ namespace HelloDungion
         // Clears Screen When Function is called  
         void ClearScreen()
         {
+            Console.WriteLine("Press Any Key To Continue ");
             Console.ReadKey();
             Console.Clear();
         }
@@ -299,7 +311,13 @@ namespace HelloDungion
         //Just Types "What Will You Do Next"
         void WhatsNext()
         {
-            Console.WriteLine("Players Turn");
+
+            Console.WriteLine("What Will You Decide NExt? \n");
+
+            for (int i = 0; i < abilities.Length; i++)
+                Console.WriteLine(abilities[i] + " (" + (i + 1) + ") ");
+            
+            Console.Write("> ");
         }
 
         public void Run()
@@ -318,7 +336,7 @@ namespace HelloDungion
 
 
 
-                gameOver = DummyResponse();
+                gameOver = HologramResponse();
 
 
                 ClearScreen();
