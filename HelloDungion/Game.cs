@@ -179,16 +179,16 @@ namespace HelloDungion
         }
 
         // Enemy stats and Interaction 
-        bool HologramResponse()
+        void HologramResponse()
         {
 
             string userResponse;
 
             Console.WriteLine("So Lets Start with some Hologram.");
-  
+
 
             Console.WriteLine("Hologram Noticed You And Sprint to Attack");
-            
+
             WhatsNext();
 
             userResponse = Console.ReadLine();
@@ -207,7 +207,7 @@ namespace HelloDungion
 
                 abilityNum = AbilityLocation(userResponse);
 
-                if (abilityNum >= 0 || abilityNum <= 2)
+                if (abilityNum > -1 && abilityNum < 3)
                 {
                     Console.WriteLine("Critical Hit, Hologram Was Shareded With Your " + abilities[abilityNum] + "\n Hologram Lays On the Ground Dead\n Congrats!!!" +
                         " \nYou Earned: 15 Levels");
@@ -218,64 +218,126 @@ namespace HelloDungion
 
                     Console.ReadKey();
 
-                    return true;
+
 
                 }
-                else if (abilityNum >= 0 || abilityNum <= 2)
+                else if (abilityNum == 3)
                 {
-                    userHealth = PlayerHealth(numaratedHealth -= 1);
+                    numaratedHealth = 0;
+                    userHealth = PlayerHealth(numaratedHealth);
                     Console.WriteLine("Your Defense Strtegy Failed\n Hologram Recovred\n Hologram Turns Towards");
                     Console.ReadKey();
                     Console.WriteLine("Hologram Truns Into a Cannon and Does His MEGA Cannon Attack");
-                    if (numaratedHealth  != 0)
-                    {
-                        Console.WriteLine("Your Health Dropped to: \t" + userHealth + " Health");
-                        return false; 
-                    }
-                    else
-                        return true;
+
+                    Console.WriteLine("Your Health Dropped to :" + userHealth);
+
 
                 }
                 else
                 {
                     Console.WriteLine("Invaled Input\n Try AGIN!!!");
-                    return false;
+
                 }
 
             }
-            else if (abilityNum >= 0 || abilityNum <= 2)
+            else if (abilityNum > -1 && abilityNum < 3)
             {
                 Console.WriteLine("Big Oofs! Dummmy Dodged Your " + abilities[abilityNum] + " Attack, " +
                     "\n Dummies Trun" +
-                    "\n Dummy Used Skull and Bone Attack");    
+                    "\n Dummy Used Skull and Bone Attack");
 
                 Console.WriteLine(" You Took  Damage\n" +
                     "Your Heath Dropped to " + userHealth);
 
-                return true;
+
 
             }
             else
             {
 
                 Console.WriteLine("Invaled Input\n Try AGIN!!!");
-                return false;
+
             }
-            
 
-            
+
+
+
         }
+        void EndGame()
+        {
+            int encounterTimes = 3; 
+            Console.WriteLine("Some How You Survived That Quick Encouter With That . . . Let me See.\n +" +
+                "LE-Vel Thirt-Ie Hol-e-Gram. . . Ooops, My Bad!. Well You're Still Alive So Lets Continue With Your Next Encounter.\n" +
+                "I Promise It'll Just Get Easier From Here");
+            Console.Clear();
 
+            for (int i = 3; 1 < encounterTimes; i--)
+            {
+                Console.WriteLine("" +
+    "                  __, -----,,,,  ,,, --------, __\n" +
+    "                _ -/|(()|((/|))(|()((()/|/|//|))_ \n" +
+    "               /|(/(//(((((((((//////////////(((((( \n" +
+    "             //|//           ((()//            ))(|) \n" +
+    "           ///|(/             ()               (|(|) \n" +
+    "           |/|//                                 |\\|)  \n" +
+    "          |/|/                                    (|)|) \n" +
+    "         ///;    ,,=====,,,  ~~-~~  ,,,=====,,     |)|) \n" +
+    "         |)|/   '           '     '         '    |)| \n" +
+    "         ||);   _--~~~~--__         __--~~~~--_   ;)|)| \n" +
+    "         /|||;  :  /       )~~-___-~~/       )  :  ;|)|  \n" +
+    "         /(|;    -_(  (o)  ) ,'; ;', (  (o)  )_-    ;|| \n" +
+    "         |(|;      ~-____--~'  ; ;  '~--____-~      ;)| \n" +
+    "          ||;            ,`   ;   ; ',            ;|| \n" +
+    "        __ |) ;        ,'`    (  _  )    `',        ;/|__ \n" +
+    "    _,-~###(|/;    ,'`        ~~ ~~        `',    ;|)###~-,_ \n" +
+    "  ,'#########||;  '                           '  ;(|/#######`, \n" +
+    " .############; ,         _--~~-~~--_           ;#############'.\n" +
+    ",-' `;-,########;        ,; |_| | |_| ;,       ;;########,-;' `-,\n" +
+    "      ;@`,######;       ;_| :%`~'~'%: |_;       ;######,'@;\n" +
+    "       ;@@`,#####;     :%%`V%%%%%%%V'%%:     ;#####,'@@;\n" +
+    "        ;@@@`,####;     :%%%%%%%%%%%%%%%;     ;####,'@@@;\n" +
+    "         ;@@@@`,###;     ;.^_%%%%%_^.;     ;####,@@@@;\n" +
+    "      _-'@@@@@@@@;-~;     ~~--|~|~|--~~     ;~--;@@@@@@@'-_\n" +
+    "  _,-'@@@@@@@@@@@@;  ;        ~~~~~        ;   ;@@@@@@@@@@@`-,_\n" +
+    ",~@@@@@@@@@@@@@@@@@;  (`~--__         __--~/  ;@@@@@@@@@@@@@@@@~,\n" +
+    "@@@@@@@@@@@@@@@@@@@@;   (   ~~-----~~    /   ;@@@@@@@@@@@@@@@@@@@\n" +
+    "@@@@@@@@@@@@@@@@@@@@@~-_  (  /  |  (   /  _-~@@@@@@@@@@@@@@@@@@@@\n" +
+    "@@@@@@@@@@@@@@@@@@@@@@@@~~-()   |   () -~~@@@@@@@@@@@@@@@@@@@@@@@\n" +
+    "@@@@@@@@@@@@@@@@@@@@@@@(=)=;==========;=(=)@@@@@@@@@@@@@@@@@@@@@@\n" +
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@;    |     ;@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+
+
+                Console.WriteLine("Return the Slab X" + i);
+                Console.ReadKey();
+
+                ClearScreen();
+            }
+                Console.WriteLine("(/_-), Someone had These Levels Pre-set to Max Hero Levels");
+
+
+
+
+
+            
+
+
+        }
+        /// <summary>
+        /// Collects Current anumrated health value and translates it to Word 
+        /// from High, MEdium, Low and Dead 
+        /// </summary>
+        /// <param name="healthLevel"> Input Anumurated Health Value </param>
+        /// <returns> String </returns>
         string PlayerHealth(int healthLevel)
         {
             if (healthLevel == 0)
-                return "Dead";
+                return "Dead Suuuuuuuun";
             else if (healthLevel == 1)
-                return "Low";
+                return "Low Health ";
             else if (healthLevel == 2)
-                return "Medium";
+                return "Medium Health";
             else if (healthLevel == 3)
-                return "High";
+                return "High Health";
             else
                 return "Fix IT Will";
 
@@ -319,7 +381,6 @@ namespace HelloDungion
             
             Console.Write("> ");
         }
-
         public void Run()
         {
 
@@ -327,6 +388,7 @@ namespace HelloDungion
             {
                 // Displays Whole Introduction For the Player 
                 Introduction();
+                EndGame();
 
                 // Fucntion Allows player to chhose there character class or skill
                 CharacterChoose();
@@ -337,6 +399,7 @@ namespace HelloDungion
 
 
                 gameOver = HologramResponse();
+
 
 
                 ClearScreen();
@@ -363,6 +426,8 @@ namespace HelloDungion
 
 
                     }
+
+                    Console.WriteLine("GAME OVER!");
 
                 }
                 
