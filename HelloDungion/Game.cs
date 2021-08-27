@@ -312,7 +312,7 @@ namespace HelloDungion
 
                 ClearScreen();
             }
-                Console.WriteLine("(/_-), Someone had These Levels Pre-set to Max Hero Levels");
+                Console.WriteLine("(/_-), Someone had These Levels Pre-set to Max Hero Levels, ");
 
 
 
@@ -398,7 +398,7 @@ namespace HelloDungion
 
 
 
-                gameOver = HologramResponse();
+                HologramResponse();
 
 
 
