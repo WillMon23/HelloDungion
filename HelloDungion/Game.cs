@@ -26,6 +26,12 @@ namespace HelloDungion
     //Console.WriteLine("So Your name is " + name);
     class Game
     {
+        public struct Hero
+        {
+            public string name;
+            public string job;
+            public int level;
+        }
 
 
         // Users name place holder
@@ -45,7 +51,7 @@ namespace HelloDungion
         public int numaratedHealth = 0;
 
         // Health stat
-        public string userHealth = " "; 
+        public string userHealth = " ";
         // Hold Charaters Damage output
         //public float userDamage = 0, enemyDamage = 40f;
 
@@ -53,9 +59,11 @@ namespace HelloDungion
         //public float earningExp = 0, ExpGain = 50;
 
         //Definds gameOver variable
-        public bool gameOver = true;
+        public bool gameOver = false;
 
         public bool wrongInput = true;
+
+        public bool playerAlive = true;
 
         // If Player wants to play agin
         string playAgain = "";
@@ -67,7 +75,7 @@ namespace HelloDungion
         public int abilityNum = 0;
 
         // Function meant to display introduction to player
-        void Introduction ()
+        void Introduction()
         {
             // Introduction
             Console.Write("So You Found Your Way Here Novice and Since You're Here I Can Only Assume You Came Here to Gain Some Levels For Your Super Hero Stats.\n");
@@ -85,7 +93,7 @@ namespace HelloDungion
                 Console.Clear();
 
                 // Asks from the veriations of occupation
-                Console.WriteLine("Are You a Type 'Flyer' or Type     '(1)' Type\n ");
+                Console.WriteLine("Are You a Type 'Flyer' or     Type '(1)' Type\n ");
 
                 Console.WriteLine("Are You a Type 'Speedster' or Type '(2)' Type\n ");
 
@@ -96,10 +104,10 @@ namespace HelloDungion
 
                 if (playerResponse == "Flyer" || playerResponse == "Speedster" || playerResponse == "Acrobatic" || playerResponse == "1" || playerResponse == "2" || playerResponse == "3")
                     properResponse = true;
-                
+
                 else
                 {
-                    Console.WriteLine("Sorry But Can You Not Read Instructions? TRY AGIN!!!");
+                    Console.WriteLine("Sorry, But Can You Not Read Instructions? TRY AGIN!!!");
                     ClearScreen();
                     properResponse = false;
                 }
@@ -168,12 +176,12 @@ namespace HelloDungion
             Console.WriteLine("You'er Skilled as a " + userJob);
             Console.WriteLine("This Skill Comes With" +
                 "\n\nStarting Level of " + userLevel +
-                "\n\nCurrent Health: " + PlayerHealth(numaratedHealth));
-               // "\n\nDamage Output of " + userDamage);
+                "\n\nCurrent Health: " + HealthStat(numaratedHealth));
+            // "\n\nDamage Output of " + userDamage);
             Console.WriteLine("Your Abilities are: ");
 
             for (int i = 0; i < abilities.Length; i++)
-                Console.WriteLine(abilities[i] + " (" + (i+1) + ") ");
+                Console.WriteLine(abilities[i] + " (" + (i + 1) + ") ");
             ClearScreen();
 
         }
@@ -182,30 +190,24 @@ namespace HelloDungion
         void HologramResponse()
         {
 
-            string userResponse;
 
             Console.WriteLine("So Lets Start with some Hologram.");
 
 
             Console.WriteLine("Hologram Noticed You And Sprint to Attack");
 
-            WhatsNext();
+            TakeAction();
 
-            userResponse = Console.ReadLine();
-
-            abilityNum = AbilityLocation(userResponse);
-
+            
 
             if (abilityNum == 3)
             {
                 Console.WriteLine("Nice, You Went Under The Hologram's Attack and Left Him Vonrable  ");
 
 
-                WhatsNext();
+                TakeAction();
 
-                userResponse = Console.ReadLine();
 
-                abilityNum = AbilityLocation(userResponse);
 
                 if (abilityNum > -1 && abilityNum < 3)
                 {
@@ -216,6 +218,12 @@ namespace HelloDungion
 
                     Console.WriteLine("Your Current Level is " + userLevel);
 
+                    ClearScreen();
+
+                    Console.WriteLine("Some How You Survived That Quick Encouter With That . . . Let me See.\n +" +
+               "LE-Vel Thirt-Ie Hol-e-Gram. . . Ooops, My Bad!. Well You're Still Alive So Lets Continue With Your Next Encounter.\n" +
+               "I Promise It'll Just Get Easier From Here");
+
                     Console.ReadKey();
 
 
@@ -224,7 +232,7 @@ namespace HelloDungion
                 else if (abilityNum == 3)
                 {
                     numaratedHealth = 0;
-                    userHealth = PlayerHealth(numaratedHealth);
+                    userHealth = HealthStat(numaratedHealth);
                     Console.WriteLine("Your Defense Strtegy Failed\n Hologram Recovred\n Hologram Turns Towards");
                     Console.ReadKey();
                     Console.WriteLine("Hologram Truns Into a Cannon and Does His MEGA Cannon Attack");
@@ -265,15 +273,62 @@ namespace HelloDungion
         }
         void EndGame()
         {
-            int encounterTimes = 3; 
-            Console.WriteLine("Some How You Survived That Quick Encouter With That . . . Let me See.\n +" +
-                "LE-Vel Thirt-Ie Hol-e-Gram. . . Ooops, My Bad!. Well You're Still Alive So Lets Continue With Your Next Encounter.\n" +
-                "I Promise It'll Just Get Easier From Here");
+            int encounterTimes = 3;
+            int attempts = 0;
+            Random randmNum = new Random();
+           
             Console.Clear();
 
-            for (int i = 3; 1 < encounterTimes; i--)
+            for (int i = 0; i <= encounterTimes; i++)
             {
-                Console.WriteLine("" +
+
+
+                if (i == 0)
+                {
+                    
+                    Console.WriteLine("" +
+"                  __, -----,,,,  ,,, --------, __\n" +
+"                _ -/|(()|((/|))(|()((()/|/|//|))_ \n" +
+"               /|(/(//(((((((((//////////////(((((( \n" +
+"             //|//           ((()//            ))(|) \n" +
+"           ///|(/             ()               (|(|) \n" +
+"           |/|//                                 |\\|)  \n" +
+"          |/|/                                    (|)|) \n" +
+"         ///;    ,,=====,,,  ~~-~~  ,,,=====,,     |)|) \n" +
+"         |)|/   '           '     '         '    |)| \n");
+                    Console.WriteLine("Return the Slab X" + (i + 1));
+                    Console.WriteLine("The Creture Seems Calm. . . For Now");
+
+                }
+                else if (i == 1)
+                {
+                    
+                    Console.WriteLine("" +
+"                  __, -----,,,,  ,,, --------, __\n" +
+"                _ -/|(()|((/|))(|()((()/|/|//|))_ \n" +
+"               /|(/(//(((((((((//////////////(((((( \n" +
+"             //|//           ((()//            ))(|) \n" +
+"           ///|(/             ()               (|(|) \n" +
+"           |/|//                                 |\\|)  \n" +
+"          |/|/                                    (|)|) \n" +
+"         ///;    ,,=====,,,  ~~-~~  ,,,=====,,     |)|) \n" +
+"         |)|/   '           '     '         '    |)| \n" +
+"         ||);   _--~~~~--__         __--~~~~--_   ;)|)| \n" +
+"         /|||;  :  /       )~~-___-~~/       )  :  ;|)|  \n" +
+"         /(|;    -_(  (o)  ) ,'; ;', (  (o)  )_-    ;|| \n" +
+"         |(|;      ~-____--~'  ; ;  '~--____-~      ;)| \n" +
+"          ||;            ,`   ;   ; ',            ;|| \n" +
+"        __ |) ;        ,'`    (  _  )    `',        ;/|__ \n" +
+"    _,-~###(|/;    ,'`        ~~ ~~        `',    ;|)###~-,_ \n" +
+"  ,'#########||;  '                           '  ;(|/#######`, \n");
+                    Console.WriteLine("Return the Slab X" + (i + 1));
+                    Console.WriteLine("There Staring to Puff UP ");
+                }
+
+                else if (i == 2)
+                {
+                    
+                    Console.WriteLine("" +
     "                  __, -----,,,,  ,,, --------, __\n" +
     "                _ -/|(()|((/|))(|()((()/|/|//|))_ \n" +
     "               /|(/(//(((((((((//////////////(((((( \n" +
@@ -300,25 +355,66 @@ namespace HelloDungion
     "      _-'@@@@@@@@;-~;     ~~--|~|~|--~~     ;~--;@@@@@@@'-_\n" +
     "  _,-'@@@@@@@@@@@@;  ;        ~~~~~        ;   ;@@@@@@@@@@@`-,_\n" +
     ",~@@@@@@@@@@@@@@@@@;  (`~--__         __--~/  ;@@@@@@@@@@@@@@@@~,\n" +
-    "@@@@@@@@@@@@@@@@@@@@;   (   ~~-----~~    /   ;@@@@@@@@@@@@@@@@@@@\n" +
-    "@@@@@@@@@@@@@@@@@@@@@~-_  (  /  |  (   /  _-~@@@@@@@@@@@@@@@@@@@@\n" +
-    "@@@@@@@@@@@@@@@@@@@@@@@@~~-()   |   () -~~@@@@@@@@@@@@@@@@@@@@@@@\n" +
-    "@@@@@@@@@@@@@@@@@@@@@@@(=)=;==========;=(=)@@@@@@@@@@@@@@@@@@@@@@\n" +
-    "@@@@@@@@@@@@@@@@@@@@@@@@@@@;    |     ;@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+    "@@@@@@@@@@@@@@@@@@@@;   (   ~~-----~~    /   ;@@@@@@@@@@@@@@@@@@@\n");
+                    Console.WriteLine("Return the Slab X" + (i + 1));
+                    Console.WriteLine("It's Getting Angry ");
+                }
+                else if (i == 3)
+                {
+                    Console.WriteLine("" +
+"                  __, -----,,,,  ,,, --------, __\n" +
+"                _ -/|(()|((/|))(|()((()/|/|//|))_ \n" +
+"               /|(/(//(((((((((//////////////(((((( \n" +
+"             //|//           ((()//            ))(|) \n" +
+"           ///|(/             ()               (|(|) \n" +
+"           |/|//                                 |\\|)  \n" +
+"          |/|/                                    (|)|) \n" +
+"         ///;    ,,=====,,,  ~~-~~  ,,,=====,,     |)|) \n" +
+"         |)|/   '           '     '         '    |)| \n" +
+"         ||);   _--~~~~--__         __--~~~~--_   ;)|)| \n" +
+"         /|||;  :  /       )~~-___-~~/       )  :  ;|)|  \n" +
+"         /(|;    -_(  (o)  ) ,'; ;', (  (o)  )_-    ;|| \n" +
+"         |(|;      ~-____--~'  ; ;  '~--____-~      ;)| \n" +
+"          ||;            ,`   ;   ; ',            ;|| \n" +
+"        __ |) ;        ,'`    (  _  )    `',        ;/|__ \n" +
+"    _,-~###(|/;    ,'`        ~~ ~~        `',    ;|)###~-,_ \n" +
+"  ,'#########||;  '                           '  ;(|/#######`, \n" +
+" .############; ,         _--~~-~~--_           ;#############'.\n" +
+",-' `;-,########;        ,; |_| | |_| ;,       ;;########,-;' `-,\n" +
+"      ;@`,######;       ;_| :%`~'~'%: |_;       ;######,'@;\n" +
+"       ;@@`,#####;     :%%`V%%%%%%%V'%%:     ;#####,'@@;\n" +
+"        ;@@@`,####;     :%%%%%%%%%%%%%%%;     ;####,'@@@;\n" +
+"         ;@@@@`,###;     ;.^_%%%%%_^.;     ;####,@@@@;\n" +
+"      _-'@@@@@@@@;-~;     ~~--|~|~|--~~     ;~--;@@@@@@@'-_\n" +
+"  _,-'@@@@@@@@@@@@;  ;        ~~~~~        ;   ;@@@@@@@@@@@`-,_\n" +
+",~@@@@@@@@@@@@@@@@@;  (`~--__         __--~/  ;@@@@@@@@@@@@@@@@~,\n" +
+"@@@@@@@@@@@@@@@@@@@@;   (   ~~-----~~    /   ;@@@@@@@@@@@@@@@@@@@\n" +
+"@@@@@@@@@@@@@@@@@@@@@~-_  (  /  |  (   /  _-~@@@@@@@@@@@@@@@@@@@@\n" +
+"@@@@@@@@@@@@@@@@@@@@@@@@~~-()   |   () -~~@@@@@@@@@@@@@@@@@@@@@@@\n" +
+"@@@@@@@@@@@@@@@@@@@@@@@(=)=;==========;=(=)@@@@@@@@@@@@@@@@@@@@@@\n" +
+"@@@@@@@@@@@@@@@@@@@@@@@@@@@;    |     ;@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 
+                    Console.WriteLine("It's Too LAte Now To Run!");
+                }
+                    if (i == 3 && attempts == 2)
+                {
+                    Console.WriteLine();
+                }
 
-                Console.WriteLine("Return the Slab X" + i);
-                Console.ReadKey();
+                TakeAction();
 
                 ClearScreen();
+
+
+
             }
-                Console.WriteLine("(/_-), Someone had These Levels Pre-set to Max Hero Levels, ");
+            Console.WriteLine("(/_-), Someone had These Levels Pre-set to Max Hero Levels, ");
 
 
 
 
 
-            
+
 
 
         }
@@ -328,12 +424,12 @@ namespace HelloDungion
         /// </summary>
         /// <param name="healthLevel"> Input Anumurated Health Value </param>
         /// <returns> String </returns>
-        string PlayerHealth(int healthLevel)
+        string HealthStat(int healthLevel)
         {
             if (healthLevel == 0)
                 return "Dead Suuuuuuuun";
             else if (healthLevel == 1)
-                return "Low Health ";
+                return "Low Health";
             else if (healthLevel == 2)
                 return "Medium Health";
             else if (healthLevel == 3)
@@ -361,6 +457,31 @@ namespace HelloDungion
             else
                 return 3;
         }
+        // Gives the USer the Aportunity to play agin or not 
+        void GameLoop()
+        {
+             while (wrongInput)
+                {
+
+                    Console.WriteLine("Would You like to play again (y/n)?");
+                    playAgain = Console.ReadLine();
+                    if (playAgain == "y")
+                    {
+                        gameOver = false;
+                        wrongInput = false;
+
+                    }
+                    else if (playAgain == "n")
+                    {
+                        gameOver = true;
+                        wrongInput = false;
+                    }
+                    else
+                        Console.WriteLine("Wrong Input Try AGIN!!");
+
+
+                }
+        }
 
         // Clears Screen When Function is called  
         void ClearScreen()
@@ -371,70 +492,61 @@ namespace HelloDungion
         }
 
         //Just Types "What Will You Do Next"
-        void WhatsNext()
+        void TakeAction()
         {
 
-            Console.WriteLine("What Will You Decide NExt? \n");
+            Console.WriteLine("Your Current Health is " + HealthStat(numaratedHealth) + ", What Will You Decide NExt? \n");
 
             for (int i = 0; i < abilities.Length; i++)
                 Console.WriteLine(abilities[i] + " (" + (i + 1) + ") ");
-            
-            Console.Write("> ");
-        }
-        public void Run()
-        {
 
-            while (gameOver)
+            Console.Write("> ");
+            string Userinput = Console.ReadLine();
+
+            abilityNum = AbilityLocation(Userinput);
+
+        }
+
+        void GameStatController()
+        {
+            while (!gameOver)
             {
                 // Displays Whole Introduction For the Player 
                 Introduction();
-                EndGame();
-
                 // Fucntion Allows player to chhose there character class or skill
                 CharacterChoose();
-
-                // Displays charater stats to user 
+                // Displays the Charaters Stats
                 PrintStats();
 
 
-
-                HologramResponse();
-
-
-
-                ClearScreen();
-                if (gameOver)
+                if (playerAlive)
                 {
-                    while (wrongInput)
-                    {
+                    EndGame();
 
-                        Console.WriteLine("Would You like to play again (y/n)?");
-                        playAgain = Console.ReadLine();
-                        if (playAgain == "y")
-                        {
-                            gameOver = true;
-                            wrongInput = false;
+                    HologramResponse();
 
-                        }
-                        else if (playAgain == "n")
-                        {
-                            gameOver = false;
-                            wrongInput = false;
-                        }
-                        else
-                            Console.WriteLine("Wrong Input Try AGIN!!");
+                    
 
 
-                    }
-
-                    Console.WriteLine("GAME OVER!");
-
+                    ClearScreen();
                 }
-                
 
-                ClearScreen();
+               
+                else if (!playerAlive  )
+                Console.WriteLine("GAME OVER!");
+
 
             }
+        }
+        public void Run()
+        {
+            GameStatController();
+
+            GameLoop();
+
+            ClearScreen();
+
+
 
             //Test Commit 
 
@@ -442,6 +554,6 @@ namespace HelloDungion
 
 
 
-        }
+        } 
     }
 }
